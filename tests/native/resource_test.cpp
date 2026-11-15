@@ -91,6 +91,9 @@ void policy_tests() {
     CHECK(hidden_package("com.infinity.udfps.icons"sv));
     CHECK(hidden_package(u"com.infinity.udfps.animations"sv));
     CHECK(!hidden_package("com.infinity.display"sv));
+    CHECK(hidden_package("com.android.axion.quicklook"sv));
+    CHECK(hidden_package("com.android.axion.quicklook.auto_generated_rro_product__"sv));
+    CHECK(!hidden_package("com.android.axionish.resource"sv));
     CHECK(!hidden_package("Lineageos.platform"sv));
     CHECK(!hidden_package("lineageos.platform.extra"sv));
     CHECK(!hidden_package("other.lineageos.platform"sv));
@@ -99,6 +102,7 @@ void policy_tests() {
     CHECK(hidden_name("string/name"sv, "lineageos.platform"sv));
     CHECK(hidden_name("lineageos.platform:string/name"sv, "android"sv));
     CHECK(hidden_name("com.infinity.udfps.icons:drawable/icon"sv, "android"sv));
+    CHECK(hidden_name("com.android.axion.sandbox:string/title"sv, "android"sv));
     CHECK(hidden_name(u"lineageos.platform:color/example"sv, u""sv));
     CHECK(!hidden_name("android:string/name"sv, "lineageos.platform"sv));
     CHECK(!hidden_name("android:string/name"sv, "com.infinity.udfps.icons"sv));

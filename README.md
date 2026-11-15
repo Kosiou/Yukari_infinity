@@ -13,6 +13,7 @@ Matching is ASCII case-insensitive and built into the module:
 - `lineage`
 - `crdroid`
 - `aospa`
+- `axion`
 - `pixelexperience`
 - `omnirom`
 - `protonaosp`
@@ -57,10 +58,10 @@ filtered reply also returns its original buffer to the Binder driver.
 All three switches default to `true`. Set any switch explicitly to `false` to disable
 the corresponding behavior.
 
-`hide_features` enables exact Lineage feature filtering and `com.infinity.*`
-feature namespace filtering for selected processes by default. The Infinity
-namespace is included for ROMs that publish feature names there; a device with
-no such registered features has no Infinity feature entries to hide.
+`hide_features` enables exact Lineage feature filtering and the
+`com.infinity.*` and `com.android.axion.*` feature namespaces for selected
+processes by default. A device with no registered features in those namespaces
+has no matching entries to hide.
 Queries use a private Parcel; enumeration replaces returned strings only for a
 tracked PackageManager feature reply. Query and enumeration support are reported
 separately. Missing JNI methods or unsupported lifecycle ABIs leave the affected
@@ -69,9 +70,10 @@ deferred ParceledListSlice chunks, unknown reply headers, and explicit Parcel
 repositioning are conservatively left visible.
 
 `hide_resources` independently hides `lineageos.platform`,
-`com.infinity.udfps.icons` and `com.infinity.udfps.animations` resource
-identifiers, single values and name lookups. Resource IDs are filtered only
-after the current AssetManager confirms their package mapping; unrelated
+`com.infinity.udfps.icons`, `com.infinity.udfps.animations` and
+`com.android.axion.*` resource identifiers, single values and name lookups.
+Resource IDs are filtered only after the current AssetManager confirms their
+package mapping; unrelated
 packages remain untouched. Missing mappings leave ID access visible. Arrays,
 themes and package map enumeration are outside this channel. This option also
 defaults to true.

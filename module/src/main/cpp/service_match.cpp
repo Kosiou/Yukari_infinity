@@ -36,7 +36,8 @@ bool matches_service(std::basic_string_view<Char> name) {
                 if (matches_at(name, off, "infinity")) return true;
                 break;
             case 'a':
-                if (matches_at(name, off, "aospa")) return true;
+                if (matches_at(name, off, "aospa") ||
+                    matches_at(name, off, "axion")) return true;
                 break;
             case 'p':
                 if (matches_at(name, off, "pixelexperience") ||

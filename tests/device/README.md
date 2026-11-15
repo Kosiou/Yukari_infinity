@@ -23,11 +23,11 @@ and module commit for every device run.
 
 | Channel | Target process | Untargeted control |
 | --- | --- | --- |
-| Service lookup | Hidden names fail lookup; normal Android services remain available. Exercise get/check/wait/isDeclared APIs present on the device, including `com.infinity.display.IRefreshRateManagerService` where present. | Original results. |
+| Service lookup | Hidden names fail lookup; normal Android services remain available. Exercise get/check/wait/isDeclared APIs present on the device, including `com.infinity.display.IRefreshRateManagerService` and Axion service names where present. | Original results. |
 | Service enumeration | listServices/getServiceDebugInfo expose no real hidden name; same-length placeholders are expected. | Original names. |
-| Feature query | hasSystemFeature returns false for each known Lineage feature and registered `com.infinity.*` feature present in the control. | Original support flags. |
+| Feature query | hasSystemFeature returns false for each known Lineage feature and registered `com.infinity.*` or `com.android.axion.*` feature present in the control. | Original support flags. |
 | Feature enumeration | Initial PackageManager reply exposes no real configured feature name when enumeration status is ready. | Original names. |
-| Resource name lookup | getIdentifier with `lineageos.platform`, `com.infinity.udfps.icons` or `com.infinity.udfps.animations` returns 0 when installed. | Original resource ID when installed. |
+| Resource name lookup | getIdentifier with `lineageos.platform`, InfinityX resource packages or `com.android.axion.*` returns 0 when installed. | Original resource ID when installed. |
 | Resource ID access | Confirm the manager maps the ID's package to one of the configured hidden packages; resource value/name access then behaves as absent. Unrelated resources work. | Original values and names. |
 | Private processes | A package target also applies to package:remote; an exact process target only applies to that process. | No injection. |
 | System boundaries | System appIds, protected framework packages and system_server have no module instrumentation. | Normal system behavior. |

@@ -8,6 +8,7 @@ inline constexpr std::string_view kHiddenPackage = "lineageos.platform";
 inline constexpr std::string_view kInfinityPackages[] = {
     "com.infinity.udfps.icons", "com.infinity.udfps.animations",
 };
+inline constexpr std::string_view kAxionPrefix = "com.android.axion.";
 
 template <typename Char>
 constexpr bool hidden_package(std::basic_string_view<Char> value) {
@@ -26,6 +27,16 @@ constexpr bool hidden_package(std::basic_string_view<Char> value) {
         bool equal = true;
         for (std::size_t i = 0; i < package.size(); ++i) {
             if (value[i] != static_cast<Char>(package[i])) {
+                equal = false;
+                break;
+            }
+        }
+        if (equal) return true;
+    }
+    if (value.size() >= kAxionPrefix.size()) {
+        bool equal = true;
+        for (std::size_t i = 0; i < kAxionPrefix.size(); ++i) {
+            if (value[i] != static_cast<Char>(kAxionPrefix[i])) {
                 equal = false;
                 break;
             }

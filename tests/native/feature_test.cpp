@@ -290,7 +290,9 @@ int main() {
     using namespace yukari::features;
     CHECK(hidden(std::string_view("com.infinity.display")));
     CHECK(hidden(std::string_view("com.infinity.feature.example")));
+    CHECK(hidden(std::string_view("com.android.axion.feature.example")));
     CHECK(!hidden(std::string_view("com.infinityish.feature")));
+    CHECK(!hidden(std::string_view("com.android.axionish.feature")));
     CHECK(!hidden(std::string_view("com.Infinity.display")));
     for (auto name : names) {
         CHECK(hidden(name));

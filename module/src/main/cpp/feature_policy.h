@@ -8,14 +8,16 @@
 namespace yukari::features {
 
 // Android feature identifiers are case-sensitive. Lineage uses known exact
-// entries; Infinity variants use their reverse-domain namespace.
+// entries; InfinityX and Axion use their reverse-domain namespaces.
 inline constexpr std::string_view names[] = {
     "org.lineageos.livedisplay", "org.lineageos.profiles",
     "org.lineageos.hardware", "org.lineageos.globalactions",
     "org.lineageos.trust", "org.lineageos.health",
     "org.lineageos.android", "org.lineageos.settings",
 };
-inline constexpr std::string_view prefixes[] = {"com.infinity."};
+inline constexpr std::string_view prefixes[] = {
+    "com.infinity.", "com.android.axion.",
+};
 
 template <typename Char>
 constexpr bool hidden(std::basic_string_view<Char> value) {
