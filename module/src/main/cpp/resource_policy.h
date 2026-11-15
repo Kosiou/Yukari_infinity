@@ -5,14 +5,34 @@
 
 namespace resource_policy {
 inline constexpr std::string_view kHiddenPackage = "lineageos.platform";
+inline constexpr std::string_view kInfinityPackages[] = {
+    "com.infinity.udfps.icons", "com.infinity.udfps.animations",
+};
 
 template <typename Char>
 constexpr bool hidden_package(std::basic_string_view<Char> value) {
-    if (value.size() != kHiddenPackage.size()) return false;
-    for (std::size_t i = 0; i < value.size(); ++i) {
-        if (value[i] != static_cast<Char>(kHiddenPackage[i])) return false;
+    if (value.size() == kHiddenPackage.size()) {
+        bool equal = true;
+        for (std::size_t i = 0; i < value.size(); ++i) {
+            if (value[i] != static_cast<Char>(kHiddenPackage[i])) {
+                equal = false;
+                break;
+            }
+        }
+        if (equal) return true;
     }
-    return true;
+    for (const auto package : kInfinityPackages) {
+        if (value.size() != package.size()) continue;
+        bool equal = true;
+        for (std::size_t i = 0; i < package.size(); ++i) {
+            if (value[i] != static_cast<Char>(package[i])) {
+                equal = false;
+                break;
+            }
+        }
+        if (equal) return true;
+    }
+    return false;
 }
 
 // An explicit package in the resource name overrides the default package.

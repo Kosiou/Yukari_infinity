@@ -16,6 +16,7 @@ Zygisk 模块，用于隐藏指定目标应用的自定义 ROM 服务信号。
 - `pixelexperience`
 - `omnirom`
 - `protonaosp`
+- `infinity`
 - `profile`
 
 用户可配置目标应用和可选过滤通道。模块不会全局停止或注销服务；过滤仅作用于选定的应用进程。
@@ -52,16 +53,18 @@ Binder 缓冲区；命中的回复使用按需增长、可复用的线程本地�
 
 三个开关均默认开启，可显式设为 `false` 关闭对应行为。
 
-`hide_features` 为目标进程启用精确 Lineage feature 过滤，默认开启。查询使用
+`hide_features` 为目标进程启用精确 Lineage feature 过滤和 `com.infinity.*`
+命名空间过滤，默认开启。若设备没有注册该命名空间下的系统特性，就没有对应的
+Infinity feature 条目可隐藏。查询使用
 私有 Parcel；枚举仅替换已登记的 PackageManager 回复所读取的字符串。日志分别
 报告查询与枚举是否可用；JNI 方法或生命周期 ABI 不支持时，对应能力保持可见。
 覆盖 Java 调用和首次枚举回复；ParceledListSlice 延迟分片、未知回复头、主动重设
 Parcel 位置时保守放行。
 
-`hide_resources` 独立过滤 `lineageos.platform` 的资源 ID 查询、单资源值和名称
-反查，默认开启。必须由当前 AssetManager 的包映射确认后才过滤 ID，不会把
-无关的 `0x3f` 包当成 Lineage；映射缺失时 ID 访问保持可见。资源数组、theme
-和包映射列表不在此通道范围内。
+`hide_resources` 独立过滤 `lineageos.platform`、`com.infinity.udfps.icons` 和
+`com.infinity.udfps.animations` 的资源 ID 查询、单资源值和名称反查，默认开启。
+必须由当前 AssetManager 的包映射确认后才过滤 ID；其他无关包保持可见，映射缺失时
+ID 访问保持可见。资源数组、theme 和包映射列表不在此通道范围内。
 
 ### WebUI
 

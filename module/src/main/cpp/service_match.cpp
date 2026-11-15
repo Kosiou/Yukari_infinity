@@ -32,6 +32,9 @@ bool matches_service(std::basic_string_view<Char> name) {
             case 'c':
                 if (matches_at(name, off, "crdroid")) return true;
                 break;
+            case 'i':
+                if (matches_at(name, off, "infinity")) return true;
+                break;
             case 'a':
                 if (matches_at(name, off, "aospa")) return true;
                 break;

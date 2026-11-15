@@ -16,6 +16,7 @@ Matching is ASCII case-insensitive and built into the module:
 - `pixelexperience`
 - `omnirom`
 - `protonaosp`
+- `infinity`
 - `profile`
 
 Users configure target applications and optional filtering channels. The module does not stop or unregister services globally; filtering is scoped to selected application processes.
@@ -56,8 +57,10 @@ filtered reply also returns its original buffer to the Binder driver.
 All three switches default to `true`. Set any switch explicitly to `false` to disable
 the corresponding behavior.
 
-`hide_features` enables exact Lineage feature filtering for selected processes
-by default.
+`hide_features` enables exact Lineage feature filtering and `com.infinity.*`
+feature namespace filtering for selected processes by default. The Infinity
+namespace is included for ROMs that publish feature names there; a device with
+no such registered features has no Infinity feature entries to hide.
 Queries use a private Parcel; enumeration replaces returned strings only for a
 tracked PackageManager feature reply. Query and enumeration support are reported
 separately. Missing JNI methods or unsupported lifecycle ABIs leave the affected
@@ -65,11 +68,13 @@ capability visible. This covers Java calls and the initial enumeration reply;
 deferred ParceledListSlice chunks, unknown reply headers, and explicit Parcel
 repositioning are conservatively left visible.
 
-`hide_resources` independently hides `lineageos.platform` resource identifiers,
-single values and name lookups. Resource IDs are filtered only after the current
-AssetManager confirms their package mapping; an unrelated `0x3f` package remains
-untouched. Missing mappings leave ID access visible. Arrays, themes and package
-map enumeration are outside this channel. This option also defaults to true.
+`hide_resources` independently hides `lineageos.platform`,
+`com.infinity.udfps.icons` and `com.infinity.udfps.animations` resource
+identifiers, single values and name lookups. Resource IDs are filtered only
+after the current AssetManager confirms their package mapping; unrelated
+packages remain untouched. Missing mappings leave ID access visible. Arrays,
+themes and package map enumeration are outside this channel. This option also
+defaults to true.
 
 ### WebUI
 

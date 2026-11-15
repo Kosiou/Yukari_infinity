@@ -88,6 +88,9 @@ void policy_tests() {
     using resource_policy::hidden_package;
     CHECK(hidden_package("lineageos.platform"sv));
     CHECK(hidden_package(u"lineageos.platform"sv));
+    CHECK(hidden_package("com.infinity.udfps.icons"sv));
+    CHECK(hidden_package(u"com.infinity.udfps.animations"sv));
+    CHECK(!hidden_package("com.infinity.display"sv));
     CHECK(!hidden_package("Lineageos.platform"sv));
     CHECK(!hidden_package("lineageos.platform.extra"sv));
     CHECK(!hidden_package("other.lineageos.platform"sv));
@@ -95,8 +98,10 @@ void policy_tests() {
     CHECK(!hidden_package("lineageos.platform\0extra"sv));
     CHECK(hidden_name("string/name"sv, "lineageos.platform"sv));
     CHECK(hidden_name("lineageos.platform:string/name"sv, "android"sv));
+    CHECK(hidden_name("com.infinity.udfps.icons:drawable/icon"sv, "android"sv));
     CHECK(hidden_name(u"lineageos.platform:color/example"sv, u""sv));
     CHECK(!hidden_name("android:string/name"sv, "lineageos.platform"sv));
+    CHECK(!hidden_name("android:string/name"sv, "com.infinity.udfps.icons"sv));
     CHECK(!hidden_name("lineageos.platform.extra:string/name"sv, ""sv));
     CHECK(!hidden_name("lineageos.platform"sv, "android"sv));
     CHECK(!hidden_name(":string/name"sv, "lineageos.platform"sv));

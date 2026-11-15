@@ -7,14 +7,15 @@
 
 namespace yukari::features {
 
-// Android feature identifiers are case-sensitive. Only known Lineage entries
-// are hidden; an arbitrary application string containing "lineage" is not.
+// Android feature identifiers are case-sensitive. Lineage uses known exact
+// entries; Infinity variants use their reverse-domain namespace.
 inline constexpr std::string_view names[] = {
     "org.lineageos.livedisplay", "org.lineageos.profiles",
     "org.lineageos.hardware", "org.lineageos.globalactions",
     "org.lineageos.trust", "org.lineageos.health",
     "org.lineageos.android", "org.lineageos.settings",
 };
+inline constexpr std::string_view prefixes[] = {"com.infinity."};
 
 template <typename Char>
 constexpr bool hidden(std::basic_string_view<Char> value) {
@@ -23,6 +24,17 @@ constexpr bool hidden(std::basic_string_view<Char> value) {
         bool equal = true;
         for (std::size_t i = 0; i < name.size(); ++i) {
             if (value[i] != static_cast<Char>(name[i])) {
+                equal = false;
+                break;
+            }
+        }
+        if (equal) return true;
+    }
+    for (const auto prefix : prefixes) {
+        if (value.size() < prefix.size()) continue;
+        bool equal = true;
+        for (std::size_t i = 0; i < prefix.size(); ++i) {
+            if (value[i] != static_cast<Char>(prefix[i])) {
                 equal = false;
                 break;
             }

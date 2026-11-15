@@ -16,7 +16,8 @@ The test executable includes the production Binder implementation directly
 and supplies no-op log functions plus minimal JNI declarations. Linker wrappers
 count native allocations and simulate allocation failures. Tests cover:
 
-- Case-insensitive keyword matching, exact-only `profile`, and malformed String16.
+- Case-insensitive ROM keyword matching, including InfinityX, exact-only
+  `profile`, and malformed String16.
 - Four-byte scanning, parcel boundaries, and 20,000 deterministic randomized
   comparisons against the original parser and matching semantics.
 - No allocation or pointer replacement for clean replies.
@@ -33,10 +34,10 @@ count native allocations and simulate allocation failures. Tests cover:
   including renamed directories, option defaults, failed reads and FD ownership.
 - Cache cleanup with failure injection at 31 JNI call sites, caller exception
   preservation, string lifetime and local reference/frame cleanup.
-- Exact feature matching and bounded reply provenance. A second test uses real
+- Exact Lineage and namespaced Infinity feature matching plus bounded reply provenance. A second test uses real
   JNI declarations with a fake function table to verify private requests,
   RemoteException preservation, scoped enumeration and Parcel reuse cleanup.
-- Resource matching and the actual resource hook code under fake JNI: dynamic
+- Exact Lineage/InfinityX resource package matching and the actual resource hook code under fake JNI: dynamic
   package IDs, unrelated `0x3f`, manager/loader changes, original exceptions,
   missing mappings and legacy/modern failure return values.
 - ELF allowlist acceptance/rejection, and a Release CMake build of every

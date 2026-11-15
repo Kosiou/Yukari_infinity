@@ -97,7 +97,7 @@ bool reference_hidden(std::string value) {
     }
     if (value == "profile") return true;
     for (const char *word : {"lineage", "crdroid", "aospa",
-                             "pixelexperience", "omnirom", "protonaosp"}) {
+                             "pixelexperience", "omnirom", "protonaosp", "infinity"}) {
         if (value.find(word) != std::string::npos) return true;
     }
     return false;
@@ -145,7 +145,8 @@ void check_scan(std::vector<uint8_t> parcel, bool expected_change) {
 
 void test_matching_and_boundaries() {
     for (auto value : {u"LiNeAgE", u"vendor.CRDROID.service", u"AOSPA",
-                       u"PixelExperience", u"OMNIROM", u"ProtonAOSP", u"PrOfIlE"}) {
+                       u"PixelExperience", u"OMNIROM", u"ProtonAOSP", u"PrOfIlE",
+                       u"com.infinity.display.IRefreshRateManagerService"}) {
         for (size_t prefix : {size_t{0}, size_t{4}, size_t{20}}) {
             check_scan(parcel_for(value, prefix), true);
         }
